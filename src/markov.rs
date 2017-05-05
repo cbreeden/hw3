@@ -1,18 +1,7 @@
 use rand;
-use rand::distributions::{IndependentSample};
+use rand::distributions::IndependentSample;
 
-use std::ops;
-
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct V(pub f64, pub f64, pub f64);
-
-impl ops::Add for V {
-    type Output = Self;
-
-    fn add(self, rhs: Self) -> Self::Output {
-        V(self.0 + rhs.0, self.1 + rhs.1, self.2 + rhs.2)
-    }
-}
+use stats::V;
 
 const XI_1: V = V(-1., 1., 0.);
 const XI_2: V = V(0., -1., 1.);
@@ -48,7 +37,7 @@ impl FiniteDifference {
         let t2 = self.theta - self.h / 2.0;
 
         for _ in 0..100 {
-            let u = range.ind_sample(&mut self.rng);
+            let u   = range.ind_sample(&mut self.rng);
             self.v1 = sample(u, t1, self.v1);
             self.v2 = sample(u, t2, self.v2);
         }

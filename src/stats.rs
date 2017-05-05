@@ -1,3 +1,38 @@
+use rand;
+use std::ops;
+use rand::distributions::IndependentSample;
+
+pub struct Noise {
+    rng:   rand::XorShiftRng,
+    range: rand::distributions::Range<f64>,
+}
+
+impl Noise {
+    pub fn new() -> Noise {
+        use rand::distributions::Range;
+
+        Noise {
+            rng:   rand::weak_rng(),
+            range: Range::new(0.0, 1.0),
+        }
+    }
+
+    pub fn ind_sample(&mut self) -> f64 {
+        self.range.ind_sample(&mut self.rng)
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct V(pub f64, pub f64, pub f64);
+
+impl ops::Add for V {
+    type Output = Self;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        V(self.0 + rhs.0, self.1 + rhs.1, self.2 + rhs.2)
+    }
+}
+
 pub trait Stats {
     fn average(&self) -> f64;
     fn variance(&self) -> f64;
@@ -19,7 +54,6 @@ impl Stats for [f64] {
             .sum::<f64>() / (self.len() as f64);
 
         sq_avg - avg * avg
-        // Sum X_i^2 / N - Avg*Avg
     }
 
     fn std_dev(&self) -> f64 {

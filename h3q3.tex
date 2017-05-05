@@ -1,4 +1,15 @@
-\subsection{Overview}\label{overview}
+\section{Exercise 8}\label{exercise-8}
+
+Using the next reaction method, simulate and plot a single trajectory of
+the model in Example 6.3 with \(\kappa_1 = 200\), \(\kappa_2 = 10\),
+\(d_M = 25\), \(d_p = 1\), an initial condition of 1 gene, 10 mRNA, and
+50 protein molecules, and a terminal time of \(T = 8\).
+
+This model yields the four reaction vectors: \[
+\xi_1 = (0,1,0),\ \xi_2 = (0,0,1),\ \xi_3 = (0,-1,0),\ \xi_4 = (0,0,-1).
+\]
+
+\section{Exercise 11}\label{exercise-11}
 
 Let
 
@@ -22,7 +33,7 @@ different techniques.
 
 \subsection{Finite Difference Method}\label{finite-difference-method}
 
-In this problem, we employ a centered finite difference method, using an
+In this problem, we employ a centered finite difference method using the
 estimator
 
 \[
@@ -33,38 +44,18 @@ estimator
 In an attempt to reduce the variance, we employ the common random
 variables technique; in which we will use the same sequence of uniform
 random variables when generating relizations \(X^{\theta + h/2}_k\) and
-\(X^{\theta - h/2}_k\).
+\(X^{\theta - h/2}_k\). We took \(n = 10,000\) samples and obtained the
+following results for various \(h\).
 
-For the finite difference method we employed the niave algorithm. That
-is, for a given value \(h\), we sample the random variable:
-
-\[
-Y^{\theta,h} := \frac{f(X^{\theta + h}) - f(X^{\theta})}{h}.
-\]
-
-Here we estimated the expected value
-\(\hat Y^{\theta,h} = \frac{1}{n} \sum^n Y^{\theta,h}_k\), and the
-sample variance \(\sqrt{\sigma}\). We \emph{did not}, however, use
-
-\[
-Y^{\theta, h} := h^2 \sum^{h^{-2}} \frac{f(X^{\theta + h}) - f(X^{\theta})}{h}
-\]
-
-for our estimator. During our trials, we did, and the sample variance
-remained roughly constant throughout different choices of \(h\). We
-decided not to use these estimators for our table to illustrate the
-additional work required when estimating for small \(h\). We took
-100,000 samples.
-
-\begin{longtable}[]{@{}crcc@{}}
+\begin{longtable}[]{@{}cccc@{}}
 \toprule
-h & \(\hat Y^{\theta, h}\) & \(\sigma^2\) & Confidence\tabularnewline
+h & \(\hat \mu^{\theta, h}\) & \(\sigma^2\) & Confidence\tabularnewline
 \midrule
 \endhead
-0.01 & -268.59 & 236102.86 & 3.01\tabularnewline
-0.005 & -286.76 & 969545.56 & 6.10\tabularnewline
-0.001 & -290.61 & 24351035.83 & 30.59\tabularnewline
-0.0005 & -349.46 & 97367597.71 & 61.16\tabularnewline
+0.01 & -306.59 & 18,230.86 & 2.56\tabularnewline
+0.005 & -304.76 & 36,782.56 & 3.76\tabularnewline
+0.001 & -296.61 & 215,947.83 & 9.11\tabularnewline
+0.0005 & -298.46 & 507,757.71 & 13.97\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -77,7 +68,7 @@ For likelihood ratio method, we took \(n = 100,000\) samples.
 \(\hat Y^{\theta}\) & \(\sigma^2\) & Confidence\tabularnewline
 \midrule
 \endhead
--331.29 & 5640541.81 & 46.55\tabularnewline
+-331.29 & 564,0541.81 & 46.55\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -89,6 +80,6 @@ the Likelihood Ratio method, we had a dramatic reduction in variance.
 \(\hat Y^\theta\) & \(\sigma^2\) & Confidence\tabularnewline
 \midrule
 \endhead
--302.56 & 190379.28 & 8.55\tabularnewline
+-302.56 & 190,379.28 & 8.55\tabularnewline
 \bottomrule
 \end{longtable}
